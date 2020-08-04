@@ -62,7 +62,6 @@ namespace PlasticIdentifier.Helpers
          * A function to initialise all of the algorithms scripts
          */
 
-
         /*
          * Run single instance of genetic algorithm, i.e. for one image
          */
