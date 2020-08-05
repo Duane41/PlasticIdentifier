@@ -53,7 +53,7 @@ namespace PlasticIdentifier.Helpers
          *      images has to be added.
          */
 
-        public void addImagesToSet(string file_path, DataSet in_dataset)
+        public static void addImagesToSet(string file_path, DataSet in_dataset)
         {
             string[] fileEntries = Directory.GetFiles(file_path);
             List<Image> new_list = new List<Image>();
@@ -158,20 +158,20 @@ namespace PlasticIdentifier.Helpers
          *  - Returns true if successful
          */
          
-        public bool copyToLocal(DataSet in_set)
+        public static bool copyToLocal(DataSet in_set)
         {
             try
             {
                 string to_directory;
                 if (!String.IsNullOrEmpty(in_set.Name))
                 {
-                    to_directory = APP_DATA + "/" + in_set.Name;
-                    Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA + "/" + in_set.Name));
+                    to_directory = getStorageFolder() + "/" + in_set.Name + "_" + in_set.Id;
+                    Directory.CreateDirectory(getStorageFolder() + "/" + in_set.Name + "_" + in_set.Id);
                 }
                 else
                 {
                     to_directory = APP_DATA + "/DataSet_" + in_set.Id;
-                    Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA + "/DataSet_" + in_set.Id));
+                    Directory.CreateDirectory(getStorageFolder() + "/DataSet_" + in_set.Id);
                 }
 
                 foreach (var img in in_set.Images)

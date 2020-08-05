@@ -22,5 +22,11 @@ namespace PlasticIdentifier
             ObjectsView obj_view = new ObjectsView();
             obj_view.ShowDialog();
         }
+
+        private void CreateDataSetButton_Click(object sender, EventArgs e)
+        {
+            DataSetCreate dataset_create_view = new DataSetCreate();
+            dataset_create_view.ShowDialog();
+        }
     }
 }
