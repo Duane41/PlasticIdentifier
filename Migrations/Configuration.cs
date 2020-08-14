@@ -5,7 +5,7 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<PlasticIdentifier.Objects.ImageContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PlasticIdentifier.Objects.PlasticDBContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@
             ContextKey = "PlasticIdentifier.Objects.ImageContext";
         }
 
-        protected override void Seed(PlasticIdentifier.Objects.ImageContext context)
+        protected override void Seed(PlasticIdentifier.Objects.PlasticDBContext context)
         {
             //  This method will be called after migrating to the latest version.
 

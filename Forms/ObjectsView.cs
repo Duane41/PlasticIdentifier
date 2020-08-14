@@ -13,10 +13,7 @@ namespace PlasticIdentifier
 {
     public partial class ObjectsView : Form
     {
-        private AlgorithmContext algorithm_db;
-        private DataSetContext dataset_db;
-        private ImageContext image_db;
-        private HardwareUsageContext hardwareusage_db;
+        private PlasticDBContext db_context;
         private BindingSource bindingsource_hardwareusage;
         private BindingSource bindingsource_images;
         private BindingSource bindingSource_datasets;
@@ -34,9 +31,9 @@ namespace PlasticIdentifier
                 AlgorithmsDataGrid.DataSource = data.ToList();
                 */
 
-                algorithm_db  = new AlgorithmContext();
+                db_context = new PlasticDBContext();
                 bindingSource_algorithms = new BindingSource();
-                bindingSource_algorithms.DataSource = (from r in algorithm_db.Algorithms
+                bindingSource_algorithms.DataSource = (from r in db_context.Algorithms
                                                        select new
                                                        {
                                                            AlgorithmId = r.AlgorithmId,
@@ -49,9 +46,8 @@ namespace PlasticIdentifier
 
 
                 //Loads dataset data
-                dataset_db = new DataSetContext();
                 bindingSource_datasets = new BindingSource();
-                bindingSource_datasets.DataSource = (from r in dataset_db.DataSets
+                bindingSource_datasets.DataSource = (from r in db_context.DataSets
                                                      select new
                                                      {
                                                          Id = r.Id,
@@ -67,12 +63,11 @@ namespace PlasticIdentifier
                 DataSetsDataGrid.DataSource = bindingSource_datasets;
 
                 //Load images data
-                image_db = new ImageContext();
                 bindingsource_images = new BindingSource();
-                bindingsource_images.DataSource = (from r in image_db.Images
+                bindingsource_images.DataSource = (from r in db_context.Images
                                                    select new
                                                    {
-                                                       ImageId = r.ImageId,
+                                                       ImageId = r.Id,
                                                        ImageSize = r.ImageSize,
                                                        FileLocation = r.FileLocation,
                                                        IsPlasic = r.IsPlastic,
@@ -82,12 +77,11 @@ namespace PlasticIdentifier
                 ImageDataGrid.DataSource = bindingsource_images;
 
                 //Loads hardwareusage data
-                hardwareusage_db = new HardwareUsageContext();
                 bindingsource_hardwareusage = new BindingSource();
-                bindingsource_hardwareusage.DataSource = (from r in hardwareusage_db.HardwareUsages
+                bindingsource_hardwareusage.DataSource = (from r in db_context.HardwareUsages
                                                           select new
                                                           {
-                                                              HardwareUsageId = r.HardwareUsageId,
+                                                              HardwareUsageId = r.Id,
                                                               Si_Unit = r.SI_Unit,
                                                               Id = r.Id
                                                           }).ToList();
@@ -127,7 +121,7 @@ namespace PlasticIdentifier
         }
         private void refresh_algorithms_view()
         {
-            bindingSource_algorithms.DataSource = (from r in algorithm_db.Algorithms
+            bindingSource_algorithms.DataSource = (from r in db_context.Algorithms
                                                    select new
                                                    {
                                                        AlgorithmId = r.AlgorithmId,
@@ -141,12 +135,12 @@ namespace PlasticIdentifier
         {
             if (!String.IsNullOrEmpty(AlgorithmInputField.Text))
             {
-                algorithm_db.Algorithms.Add(new Algorithm()
+                db_context.Algorithms.Add(new Algorithm()
                 {
                     Name = AlgorithmInputField.Text
                 });
 
-                algorithm_db.SaveChanges();
+                db_context.SaveChanges();
                 
                 MessageBox.Show("Algorithm Added");
 

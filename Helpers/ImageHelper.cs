@@ -57,32 +57,39 @@ namespace PlasticIdentifier.Helpers
 
         public static void addImagesToSet(string file_path, DataSet in_dataset)
         {
-            string[] fileEntries = Directory.GetFiles(file_path);
-            List<Image> new_list = new List<Image>();
-            foreach (string fileName in fileEntries)
+            try
             {
-
-                FileInfo file = new FileInfo(fileName);
-                if (file.Extension != ".jpg")
+                string[] fileEntries = Directory.GetFiles(file_path);
+                List<Image> new_list = new List<Image>();
+                foreach (string fileName in fileEntries)
                 {
-                    continue;
+
+                    FileInfo file = new FileInfo(fileName);
+                    if (file.Extension != ".jpg")
+                    {
+                        continue;
+                    }
+                    new_list.Add(new Image
+                    {
+                        FileLocation = file.FullName,
+                        ImageSize = file.Length / 6,
+                        DataSetId = in_dataset.Id,
+                        IsPlastic = false
+                    });
                 }
-                new_list.Add(new Image
+                using (var db = new PlasticDBContext())
                 {
-                    FileLocation = file.FullName,
-                    ImageSize = file.Length / 6,
-                    Id = in_dataset.Id
+                    in_dataset.Images = new_list;
+                    db.Images.AddRange(new_list);
+                    db.SaveChanges();
+                }
 
-                });
-            }
-            using (var db = new ImageContext())
+                copyToLocal(in_dataset);
+            } catch (Exception ex)
             {
-                in_dataset.Images = new_list;
-                db.Images.AddRange(new_list);
-                db.SaveChanges();
+                Console.WriteLine(ex.Message);
             }
-
-            copyToLocal(in_dataset);
+            
         }
 
         /*

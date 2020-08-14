@@ -15,8 +15,7 @@ namespace PlasticIdentifier
     
     public partial class ImageIdentification : Form
     {
-        private AlgorithmContext algorithm_db;
-        private DataSetContext dataset_db;
+        private PlasticDBContext db_context;
         private int selected_algorithm_id;
         private Algorithm selected_algorithm;
         private Objects.DataSet selected_dataset;
@@ -24,10 +23,9 @@ namespace PlasticIdentifier
         {
             InitializeComponent();
 
-            algorithm_db = new AlgorithmContext();
-            dataset_db = new DataSetContext();
-            List<Algorithm> alg_list = algorithm_db.Algorithms.ToList();
-            AlgorithmListBox.DataSource = algorithm_db.Algorithms.ToList();
+            db_context = new PlasticDBContext();
+            List<Algorithm> alg_list = db_context.Algorithms.ToList();
+            AlgorithmListBox.DataSource = db_context.Algorithms.ToList();
             AlgorithmListBox.DisplayMember = "Name";
         }
 
@@ -76,7 +74,7 @@ namespace PlasticIdentifier
         {
             try
             {
-                List<Objects.DataSet> data_set_associated = dataset_db.DataSets.Where(d => d.AlgorithmId == selected_algorithm_id).ToList();
+                List<Objects.DataSet> data_set_associated = db_context.DataSets.Where(d => d.AlgorithmId == selected_algorithm_id).ToList();
                 if (data_set_associated.Count == 0)
                 {
                     SelectedDataSetField.Text = "DataSet not created for this algorithm";
@@ -97,7 +95,7 @@ namespace PlasticIdentifier
         {
             try
             {
-                bool? trained = dataset_db.DataSets.Where(d => d.Id == DataSetListBox.SelectedIndex).Select(d => d.Trained).FirstOrDefault();
+                bool? trained = db_context.DataSets.Where(d => d.Id == DataSetListBox.SelectedIndex).Select(d => d.Trained).FirstOrDefault();
                 if (!trained.HasValue)
                 {
                     SelectedDataSetField.Text = "Selected DataSet needs training!";

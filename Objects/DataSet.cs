@@ -9,11 +9,6 @@ using System.Data.Entity.Infrastructure;
 
 namespace PlasticIdentifier.Objects
 {
-    public class DataSetContext : DbContext
-    {
-        public DbSet<DataSet> DataSets { get; set; }
-    }
-
     public class DataSet
     {
         public int Id { get; set; }

@@ -9,18 +9,13 @@ using System.Data.Entity.Infrastructure;
 
 namespace PlasticIdentifier.Objects
 {
-    public class HardwareUsageContext : DbContext
-    {
-        public DbSet<HardwareUsage> HardwareUsages { get; set; }
-    }
-
     public class HardwareUsage
     {
-        public int HardwareUsageId { get; set; }
+        public int Id { get; set; }
 
         public string SI_Unit { get; set; }
 
-        public int Id { get; set; }
+        public int DataSetId { get; set; }
 
         public virtual DataSet DataSet { get; set; }
     }

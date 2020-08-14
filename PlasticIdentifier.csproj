@@ -141,16 +141,13 @@
     <Compile Include="Migrations\202007221630202_InitialCreate.designer.cs">
       <DependentUpon>202007221630202_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202007230747151_ImageExtension.cs" />
-    <Compile Include="Migrations\202007230747151_ImageExtension.designer.cs">
-      <DependentUpon>202007230747151_ImageExtension.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007241109432_FinalMigrationD5.cs" />
-    <Compile Include="Migrations\202007241109432_FinalMigrationD5.designer.cs">
-      <DependentUpon>202007241109432_FinalMigrationD5.cs</DependentUpon>
+    <Compile Include="Migrations\202008141015020_NewBuildContext.cs" />
+    <Compile Include="Migrations\202008141015020_NewBuildContext.designer.cs">
+      <DependentUpon>202008141015020_NewBuildContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Objects\Algorithm.cs" />
+    <Compile Include="Objects\PlasticDBContext.cs" />
     <Compile Include="Objects\HardwareUsage.cs" />
     <Compile Include="Objects\DataSet.cs" />
     <Compile Include="Objects\Image.cs" />
@@ -180,11 +177,8 @@
     <EmbeddedResource Include="Migrations\202007221630202_InitialCreate.resx">
       <DependentUpon>202007221630202_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007230747151_ImageExtension.resx">
-      <DependentUpon>202007230747151_ImageExtension.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007241109432_FinalMigrationD5.resx">
-      <DependentUpon>202007241109432_FinalMigrationD5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008141015020_NewBuildContext.resx">
+      <DependentUpon>202008141015020_NewBuildContext.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

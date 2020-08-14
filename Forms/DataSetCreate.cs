@@ -15,13 +15,13 @@ namespace PlasticIdentifier
 {
     public partial class DataSetCreate : Form
     {
-        private DataSetContext dataset_db;
+        private PlasticDBContext dataset_db;
 
 
         public DataSetCreate()
         {
             InitializeComponent();
-            dataset_db = new DataSetContext();
+            dataset_db = new PlasticDBContext();
         }
 
         private void SelectFileButton_Click(object sender, EventArgs e)

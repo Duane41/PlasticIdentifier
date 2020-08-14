@@ -10,14 +10,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlasticIdentifier.Objects
 {
-    public class ImageContext : DbContext
-    {
-        public DbSet<Image> Images { get; set; }
-    }
-
     public class Image
     {
-        public int ImageId { get; set; }
+        public int Id { get; set; }
 
         public double ImageSize { get; set; }
 
@@ -26,7 +21,7 @@ namespace PlasticIdentifier.Objects
         public bool? IsPlastic { get; set; }
 
         //Foreign Key to dataset
-        public int Id { get; set; }
+        public int DataSetId { get; set; }
 
         public virtual DataSet DateSet { get; set; }
     }

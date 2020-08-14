@@ -9,10 +9,6 @@ using System.Data.Entity.Infrastructure;
 
 namespace PlasticIdentifier.Objects
 {
-    public class AlgorithmContext : DbContext
-    {
-        public DbSet<Algorithm> Algorithms { get; set; }
-    }
     public class Algorithm
     {
         public int AlgorithmId { get; set; }
