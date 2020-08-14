@@ -59,7 +59,8 @@ namespace PlasticIdentifier
                 }
             }
 
-            FileSelectedField.Text = "Complete!";
+            MessageBox.Show("Algorithm Added");
+            this.Close();
         }
 
         private bool ValidFiles(string path)
