@@ -24,6 +24,7 @@ namespace PlasticIdentifier.Objects
         public string FileLocation { get; set; }
 
         public bool? IsPlastic { get; set; }
+
         //Foreign Key to dataset
         public int Id { get; set; }
 
