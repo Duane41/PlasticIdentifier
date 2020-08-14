@@ -28,5 +28,17 @@ namespace PlasticIdentifier
             DataSetCreate dataset_create_view = new DataSetCreate();
             dataset_create_view.ShowDialog();
         }
+
+        private void IdentifyImageBtn_Click(object sender, EventArgs e)
+        {
+            ImageIdentification identification_view = new ImageIdentification();
+            identification_view.ShowDialog();
+        }
+
+        private void TrainingBtn_Click(object sender, EventArgs e)
+        {
+            Training training_view = new Training();
+            training_view.ShowDialog();
+        }
     }
 }

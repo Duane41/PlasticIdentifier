@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using PlasticIdentifier.Objects;
 using System.Web;
+using System.Data.Entity;
+
 namespace PlasticIdentifier.Helpers
 {
     public class ImageHelper
@@ -26,12 +28,12 @@ namespace PlasticIdentifier.Helpers
         {
             try
             {
-                bool app_dataExists = Directory.Exists(System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA));
+                bool app_dataExists = Directory.Exists(APP_DATA);
                 if (!app_dataExists)
                 {
-                    Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA));
+                    Directory.CreateDirectory(APP_DATA);
                 }
-                return System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA);
+                return APP_DATA;
             }
             catch (Exception ex)
             {
@@ -59,16 +61,23 @@ namespace PlasticIdentifier.Helpers
             List<Image> new_list = new List<Image>();
             foreach (string fileName in fileEntries)
             {
+
                 FileInfo file = new FileInfo(fileName);
+                if (file.Extension != ".jpg")
+                {
+                    continue;
+                }
                 new_list.Add(new Image
                 {
-                    FileLocation = file_path,
+                    FileLocation = file.FullName,
                     ImageSize = file.Length / 6,
                     Id = in_dataset.Id
+
                 });
             }
             using (var db = new ImageContext())
             {
+                in_dataset.Images = new_list;
                 db.Images.AddRange(new_list);
                 db.SaveChanges();
             }
@@ -166,19 +175,22 @@ namespace PlasticIdentifier.Helpers
                 if (!String.IsNullOrEmpty(in_set.Name))
                 {
                     to_directory = getStorageFolder() + "/" + in_set.Name + "_" + in_set.Id;
-                    Directory.CreateDirectory(getStorageFolder() + "/" + in_set.Name + "_" + in_set.Id);
+                    Directory.CreateDirectory(to_directory);
                 }
                 else
                 {
-                    to_directory = APP_DATA + "/DataSet_" + in_set.Id;
-                    Directory.CreateDirectory(getStorageFolder() + "/DataSet_" + in_set.Id);
+                    to_directory = getStorageFolder() + "/DataSet_" + in_set.Id;
+                    Directory.CreateDirectory(to_directory);
                 }
 
                 foreach (var img in in_set.Images)
                 {
                     try
                     {
-                        File.Copy(img.FileLocation, to_directory, true);
+                        File.SetAttributes(img.FileLocation, File.GetAttributes(img.FileLocation) & ~FileAttributes.ReadOnly);
+                        File.SetAttributes(APP_DATA, File.GetAttributes(APP_DATA) & ~FileAttributes.ReadOnly);
+                        FileInfo file = new FileInfo(img.FileLocation);
+                        File.Copy(img.FileLocation, Path.Combine(to_directory, file.Name), true);
                     }
                     catch (IOException ioex)
                     {

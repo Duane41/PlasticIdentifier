@@ -26,12 +26,13 @@ namespace PlasticIdentifier.Helpers
         {
             try
             {
-                bool app_dataExists = Directory.Exists(System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA));
-                if (!app_dataExists)
+                bool app_dataExists = Directory.Exists(APP_DATA);
+                while (!app_dataExists)
                 {
-                    Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA));
+                    Directory.SetCurrentDirectory(System.IO.Directory.GetParent(Environment.CurrentDirectory).ToString());
+                    app_dataExists = Directory.Exists(APP_DATA);
                 }
-                return System.Web.Hosting.HostingEnvironment.MapPath(APP_DATA);
+                return APP_DATA;
             }
             catch (Exception ex)
             {
