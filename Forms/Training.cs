@@ -16,5 +16,20 @@ namespace PlasticIdentifier
         {
             InitializeComponent();
         }
+
+        private void StartTrainingBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectDatSetListTrain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SelectAlgorithmListTrain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
