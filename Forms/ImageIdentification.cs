@@ -17,6 +17,7 @@ namespace PlasticIdentifier
     {
         private PlasticDBContext db_context;
         private int selected_algorithm_id;
+        private int selected_dataset_id;
         private Algorithm selected_algorithm;
         private Objects.DataSet selected_dataset;
         public ImageIdentification()
@@ -33,8 +34,8 @@ namespace PlasticIdentifier
         {
             try
             {
-                selected_algorithm_id = AlgorithmListBox.SelectedIndex;
                 selected_algorithm = (Algorithm)AlgorithmListBox.SelectedItem;
+                selected_algorithm_id = selected_algorithm.AlgorithmId;
                 SelectedAlgortihmField.Text = selected_algorithm.Name;
                 PopulateDataSetList();
             }
@@ -95,14 +96,15 @@ namespace PlasticIdentifier
         {
             try
             {
-                bool? trained = db_context.DataSets.Where(d => d.Id == DataSetListBox.SelectedIndex).Select(d => d.Trained).FirstOrDefault();
-                if (!trained.HasValue)
+                selected_dataset = (Objects.DataSet)DataSetListBox.SelectedItem;
+                selected_dataset_id = selected_dataset.Id;
+                if (!selected_dataset.Trained)
                 {
                     SelectedDataSetField.Text = "Selected DataSet needs training!";
                 }
-                else if (trained.Value)
+                else if (selected_dataset.Trained)
                 {
-                    selected_dataset = (Objects.DataSet)DataSetListBox.SelectedItem;
+                    
                     SelectedDataSetField.Text = selected_dataset.Name + "; #Image in set: " + selected_dataset.NumImages;
                 }
             }
