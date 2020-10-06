@@ -1,4 +1,5 @@
-﻿using PlasticIdentifier.Objects;
+﻿using PlasticIdentifier.Helpers;
+using PlasticIdentifier.Objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,8 @@ namespace PlasticIdentifier
         private int selected_dataset_id;
         private Algorithm selected_algorithm;
         private Objects.DataSet selected_dataset;
+
+
         public ImageIdentification()
         {
             InitializeComponent();
@@ -107,6 +110,18 @@ namespace PlasticIdentifier
                     
                     SelectedDataSetField.Text = selected_dataset.Name + "; #Image in set: " + selected_dataset.NumImages;
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string ret = AlgorithmHelper.PatchParameter("", 0);
             }
             catch (Exception ex)
             {

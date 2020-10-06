@@ -34,6 +34,7 @@
             this.SelectedAlgortihmField = new System.Windows.Forms.Label();
             this.DataSetListBox = new System.Windows.Forms.ListBox();
             this.SelectedDataSetField = new System.Windows.Forms.Label();
+            this.ID_image = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SelectedImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,11 +100,22 @@
             this.SelectedDataSetField.TabIndex = 5;
             this.SelectedDataSetField.Text = "DataSet not selected!";
             // 
+            // ID_image
+            // 
+            this.ID_image.Location = new System.Drawing.Point(276, 627);
+            this.ID_image.Name = "ID_image";
+            this.ID_image.Size = new System.Drawing.Size(218, 43);
+            this.ID_image.TabIndex = 6;
+            this.ID_image.Text = "Identify Image";
+            this.ID_image.UseVisualStyleBackColor = true;
+            this.ID_image.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ImageIdentification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(760, 750);
+            this.Controls.Add(this.ID_image);
             this.Controls.Add(this.SelectedDataSetField);
             this.Controls.Add(this.DataSetListBox);
             this.Controls.Add(this.SelectedAlgortihmField);
@@ -126,5 +138,6 @@
         private System.Windows.Forms.Label SelectedAlgortihmField;
         private System.Windows.Forms.ListBox DataSetListBox;
         private System.Windows.Forms.Label SelectedDataSetField;
+        private System.Windows.Forms.Button ID_image;
     }
 }

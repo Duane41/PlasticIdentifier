@@ -29,5 +29,9 @@ C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifi
 C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\bin\Debug\Microsoft.Scripting.Metadata.xml
 C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.exe
 C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.pdb
-C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.csprojResolveAssemblyReference.cache
 C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.Migrations.NewBuildContext.resources
+C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\bin\Debug\IronPythonConsole.dll
+C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\bin\Debug\PythonConsoleControl.dll
+C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.csprojAssemblyReference.cache
+C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.csproj.CoreCompileInputs.cache
+C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlasticIdentifier\obj\Debug\PlasticIdentifier.csproj.CopyComplete
