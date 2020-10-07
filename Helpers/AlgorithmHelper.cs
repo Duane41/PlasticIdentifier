@@ -2,6 +2,7 @@
 using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,46 +43,179 @@ namespace PlasticIdentifier.Helpers
         }
 
 
-        public static string PatchParameter(string parameter, int serviceid)
+        public static void PatchParameter(string parameter, int serviceid)
         {
-            var engine = Python.CreateEngine(); // Extract Python language engine from their grasp
+            var engine = Python.CreateEngine();
 
-            var scope = engine.CreateScope(); // Introduce Python namespace (scope)
+            var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
 
-            var d = new Dictionary<string, object>
-            {
-                { "serviceid", serviceid},
-                { "parameter", parameter}
-            }; // Add some sample parameters. Notice that there is no need in specifically setting the object type, interpreter will do that part for us in the script properly with high probability
+            var paths = engine.GetSearchPaths();
 
-            scope.SetVariable("params", d); // This will be the name of the dictionary in python script, initialized with previously created .NET Dictionary
+            paths.Add(@"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Lib\site-packages\");
 
-            ScriptSource source = engine.CreateScriptSourceFromFile("C:\\Users\\Duane de Villiers\\Documents\\Visual Studio 2015\\Projects\\PlasticIdentifier\\Python\\Vectorize.py"); // Load the script
-            object result = source.Execute(scope);
+            engine.SetSearchPaths(paths);
 
-            //parameter = scope.GetVariable<string>("func"); // To get the finally set variable 'parameter' from the python script
-            
-            return parameter;
+            var source = engine.CreateScriptSourceFromFile(script);
+
+            var argv = new List<string>();
+
+            argv.Add("");
+
+            argv.Add("Success!!");
+
+            engine.GetSysModule().SetVariable("argv", argv);
+
+            var s_IO = engine.Runtime.IO;
+
+            var errors = new MemoryStream();
+
+            s_IO.SetErrorOutput(errors, Encoding.Default);
+
+            var outputs = new MemoryStream();
+
+            s_IO.SetOutput(outputs, Encoding.Default);
+
+            var scope = engine.CreateScope();
+            source.Execute(scope);
+
+            string str(byte[] x) => Encoding.Default.GetString(x);
+
+            PrintEAndR(str(errors.ToArray()), str(outputs.ToArray()));
         }
 
-        /*
-         * A function to initialise all of the algorithms scripts
-         */
+        public static void PatchParameterProcess(string parameter, int serviceid)
+        {
+            var psi = new ProcessStartInfo();
 
-        /*
-         * Run single instance of genetic algorithm, i.e. for one image
-         */
+            psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
 
-        /*
-         * Run multiple instances of genetic algorithm, i.e. for multiple image
-         */
+            var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
 
-        /*
-         * Run single instance of simulated annealing algorithm, i.e. for one image
-         */
+            var arg_1 = "Success!";
 
-        /*
-         * Run multiple instances of simulated annealing, i.e. for multiple image
-         */
+            psi.Arguments = $"\"{script}\" \"{arg_1}";
+
+            psi.UseShellExecute = false;
+
+            psi.CreateNoWindow = true;
+
+            psi.RedirectStandardOutput = true;
+
+            psi.RedirectStandardError = true;
+
+            string errors = "";
+
+            string results = "";
+
+            using (var process = Process.Start(psi))
+            {
+
+                errors = process.StandardError.ReadToEnd();
+
+                results = process.StandardOutput.ReadToEnd();
+
+            }
+
+            PrintEAndR(errors, results);
+        }
+
+        public static void TrainDataSetAvgVec(string parameter, string file_name)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
+
+                psi.Arguments = $"\"{script}\" \"{parameter}\" \"{file_name}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+        }
+
+        public static bool IDPixelVec(string parameter)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
+
+                var arg_1 = "Success!";
+
+                psi.Arguments = $"\"{script}\" \"{arg_1}";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                return true;
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+
+            }
+            
+        }
+
+        private static void PrintEAndR(string errors, string results)
+        {
+            Console.WriteLine("Errors:");
+            Console.WriteLine(errors);
+            Console.WriteLine();
+            Console.WriteLine("Results:");
+            Console.WriteLine(results);
+        }
+        
     }
 }

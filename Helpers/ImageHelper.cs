@@ -60,15 +60,19 @@ namespace PlasticIdentifier.Helpers
             try
             {
                 string[] fileEntries = Directory.GetFiles(file_path);
+
                 List<Image> new_list = new List<Image>();
+
                 foreach (string fileName in fileEntries)
                 {
 
                     FileInfo file = new FileInfo(fileName);
+
                     if (file.Extension != ".jpg")
                     {
                         continue;
                     }
+
                     new_list.Add(new Image
                     {
                         FileLocation = file.FullName,
@@ -80,11 +84,14 @@ namespace PlasticIdentifier.Helpers
                 using (var db = new PlasticDBContext())
                 {
                     in_dataset.Images = new_list;
+
                     db.Images.AddRange(new_list);
+
                     db.SaveChanges();
                 }
 
                 copyToLocal(in_dataset);
+
             } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);

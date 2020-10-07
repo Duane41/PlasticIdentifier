@@ -32,7 +32,9 @@ namespace PlasticIdentifier
                 */
 
                 db_context = new PlasticDBContext();
+
                 bindingSource_algorithms = new BindingSource();
+
                 bindingSource_algorithms.DataSource = (from r in db_context.Algorithms
                                                        select new
                                                        {
@@ -47,6 +49,7 @@ namespace PlasticIdentifier
 
                 //Loads dataset data
                 bindingSource_datasets = new BindingSource();
+
                 bindingSource_datasets.DataSource = (from r in db_context.DataSets
                                                      select new
                                                      {
@@ -64,6 +67,7 @@ namespace PlasticIdentifier
 
                 //Load images data
                 bindingsource_images = new BindingSource();
+
                 bindingsource_images.DataSource = (from r in db_context.Images
                                                    select new
                                                    {
@@ -78,6 +82,7 @@ namespace PlasticIdentifier
 
                 //Loads hardwareusage data
                 bindingsource_hardwareusage = new BindingSource();
+
                 bindingsource_hardwareusage.DataSource = (from r in db_context.HardwareUsages
                                                           select new
                                                           {
@@ -89,8 +94,10 @@ namespace PlasticIdentifier
                 HardwareUsageDataGrid.DataSource = bindingsource_hardwareusage;
 
                 AddAlgorithmBtn.Visible = false;
+
                 AlgorithmInputField.Visible = false;
 
+                Console.WriteLine("Objects view loaded");
             }
             catch (Exception ex)
             {
@@ -141,8 +148,8 @@ namespace PlasticIdentifier
                 });
 
                 db_context.SaveChanges();
-                
-                MessageBox.Show("Algorithm Added");
+
+                Console.WriteLine("Algorithm added");
 
                 AlgorithmInputField.Clear();
 
@@ -153,12 +160,14 @@ namespace PlasticIdentifier
         private void onClickAlgorithms()
         {
             AddAlgorithmBtn.Visible = true;
+
             AlgorithmInputField.Visible = true;
         }
 
         private void HideAddAlgorithms()
         {
             AddAlgorithmBtn.Visible = false;
+
             AlgorithmInputField.Visible = false;
         }
 

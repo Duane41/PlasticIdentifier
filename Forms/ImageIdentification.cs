@@ -121,7 +121,11 @@ namespace PlasticIdentifier
         {
             try
             {
-                string ret = AlgorithmHelper.PatchParameter("", 0);
+                //Send through image location
+                //Send through data set location
+                AlgorithmHelper.PatchParameterProcess("", 0);
+
+                //Set result
             }
             catch (Exception ex)
             {
