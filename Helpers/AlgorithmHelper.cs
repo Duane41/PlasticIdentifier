@@ -47,7 +47,7 @@ namespace PlasticIdentifier.Helpers
         {
             var engine = Python.CreateEngine();
 
-            var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
+            var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\VectorizePixel.py";
 
             var paths = engine.GetSearchPaths();
 
@@ -89,7 +89,7 @@ namespace PlasticIdentifier.Helpers
 
             psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
 
-            var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
+            var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\VectorizePixel.py";
 
             var arg_1 = "Success!";
 
@@ -119,7 +119,7 @@ namespace PlasticIdentifier.Helpers
             PrintEAndR(errors, results);
         }
 
-        public static void TrainDataSetAvgVec(string parameter, string file_name)
+        public static void TrainDataSetAvgVec(string file_location, string file_name)
         {
             try
             {
@@ -127,9 +127,9 @@ namespace PlasticIdentifier.Helpers
 
                 psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
 
-                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\VectorizePixel.py";
 
-                psi.Arguments = $"\"{script}\" \"{parameter}\" \"{file_name}\"";
+                psi.Arguments = $"\"{script}\" \"{file_location}\" \"{file_name}\"";
 
                 psi.UseShellExecute = false;
 
@@ -161,7 +161,7 @@ namespace PlasticIdentifier.Helpers
             
         }
 
-        public static bool IDPixelVec(string parameter)
+        public static void TrainDataSetAvgVecHist(string file_location, string file_name)
         {
             try
             {
@@ -169,11 +169,9 @@ namespace PlasticIdentifier.Helpers
 
                 psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
 
-                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\Vectorize.py";
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\VectorizeHist.py";
 
-                var arg_1 = "Success!";
-
-                psi.Arguments = $"\"{script}\" \"{arg_1}";
+                psi.Arguments = $"\"{script}\" \"{file_location}\" \"{file_name}\"";
 
                 psi.UseShellExecute = false;
 
@@ -198,7 +196,58 @@ namespace PlasticIdentifier.Helpers
 
                 PrintEAndR(errors, results);
 
-                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
+        public static bool IDPixelVecEuclid(string dataset_location, string dataset_name, string selected_image)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\IdentifyPixelEuclid.py";
+
+                psi.Arguments = $"\"{script}\" \"{dataset_location}\" \"{dataset_name}\" \"{selected_image}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                if (results.Contains("True"))
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+
+                
             } catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -206,6 +255,279 @@ namespace PlasticIdentifier.Helpers
 
             }
             
+        }
+
+        public static bool IDPixelManhattan(string dataset_location, string dataset_name, string selected_image)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\IdentifyPixelManhattan.py";
+
+                psi.Arguments = $"\"{script}\" \"{dataset_location}\" \"{dataset_name}\" \"{selected_image}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                if (results.Contains("True"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+
+            }
+
+        }
+
+        public static bool IDPixelCosine(string dataset_location, string dataset_name, string selected_image)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\IdentifyPixelCosine.py";
+
+                psi.Arguments = $"\"{script}\" \"{dataset_location}\" \"{dataset_name}\" \"{selected_image}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                if (results.Contains("True"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+
+            }
+
+        }
+        public static bool IDHistVecEuclid(string dataset_location, string dataset_name, string selected_image)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\IdentifyHistEuclid.py";
+
+                psi.Arguments = $"\"{script}\" \"{dataset_location}\" \"{dataset_name}\" \"{selected_image}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                if (results.Contains("True"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+
+            }
+
+        }
+        public static bool IDHistManhattan(string dataset_location, string dataset_name, string selected_image)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\IdentifyHistManhattan.py";
+
+                psi.Arguments = $"\"{script}\" \"{dataset_location}\" \"{dataset_name}\" \"{selected_image}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                if (results.Contains("True"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+
+            }
+
+        }
+
+        public static bool IDHistCosine(string dataset_location, string dataset_name, string selected_image)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo();
+
+                psi.FileName = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\env\Scripts\python.exe";
+
+                var script = @"C:\Users\Duane de Villiers\Documents\Visual Studio 2015\Projects\PlasticIdentifier\PlastiIdentifier2.0\IdentifyHistCosine.py";
+
+                psi.Arguments = $"\"{script}\" \"{dataset_location}\" \"{dataset_name}\" \"{selected_image}\"";
+
+                psi.UseShellExecute = false;
+
+                psi.CreateNoWindow = true;
+
+                psi.RedirectStandardOutput = true;
+
+                psi.RedirectStandardError = true;
+
+                string errors = "";
+
+                string results = "";
+
+                using (var process = Process.Start(psi))
+                {
+
+                    errors = process.StandardError.ReadToEnd();
+
+                    results = process.StandardOutput.ReadToEnd();
+
+                }
+
+                PrintEAndR(errors, results);
+
+                if (results.Contains("True"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+
+            }
+
         }
 
         private static void PrintEAndR(string errors, string results)

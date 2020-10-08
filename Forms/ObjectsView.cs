@@ -33,6 +33,7 @@ namespace PlasticIdentifier
 
                 db_context = new PlasticDBContext();
 
+
                 bindingSource_algorithms = new BindingSource();
 
                 bindingSource_algorithms.DataSource = (from r in db_context.Algorithms

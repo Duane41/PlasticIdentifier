@@ -59,9 +59,54 @@ namespace PlasticIdentifier
                 }
                 else
                 {
-                    PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVec(
+                    switch (selected_algorithm_id)
+                    {
+                        case 4:
+
+                            PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVec(
                         APP_DATA + selected_dataset.Name + "_" + selected_dataset.Id,
                         selected_dataset.Name + "_" + selected_dataset.Id);
+
+                            break;
+                        case 5:
+
+                            PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVecHist(
+                        APP_DATA + selected_dataset.Name + "_" + selected_dataset.Id,
+                        selected_dataset.Name + "_" + selected_dataset.Id);
+
+                            break;
+                        case 6:
+
+                            PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVec(
+                        APP_DATA + selected_dataset.Name + "_" + selected_dataset.Id,
+                        selected_dataset.Name + "_" + selected_dataset.Id);
+
+                            break;
+                        case 7:
+
+                            PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVecHist(
+                        APP_DATA + selected_dataset.Name + "_" + selected_dataset.Id,
+                        selected_dataset.Name + "_" + selected_dataset.Id);
+
+
+                            break;
+                        case 8:
+
+                            PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVec(
+                        APP_DATA + selected_dataset.Name + "_" + selected_dataset.Id,
+                        selected_dataset.Name + "_" + selected_dataset.Id);
+
+                            break;
+                        case 9:
+
+                            PlasticIdentifier.Helpers.AlgorithmHelper.TrainDataSetAvgVecHist(
+                        APP_DATA + selected_dataset.Name + "_" + selected_dataset.Id,
+                        selected_dataset.Name + "_" + selected_dataset.Id);
+
+
+                            break;
+                    }
+                    
 
                     selected_dataset.Trained = true;
 
@@ -70,6 +115,9 @@ namespace PlasticIdentifier
                     db_context.SaveChanges();
 
                     MessageBox.Show("Training Complete");
+
+                    Console.WriteLine("Training complete");
+
                     this.Close();
                 }
                 

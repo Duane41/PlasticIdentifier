@@ -53,5 +53,10 @@ namespace PlasticIdentifier
 
             training_view.ShowDialog();
         }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
